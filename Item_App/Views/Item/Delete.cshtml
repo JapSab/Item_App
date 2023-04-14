@@ -1,0 +1,21 @@
+﻿@model Items
+
+<h1>Add an item </h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter product name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input asp-for="Price" class="form-control" placeholder="Enter product price">
+        <span asp-validation-for="Price" class="text-danger"></span>
+
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a asp-controller="Item" asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

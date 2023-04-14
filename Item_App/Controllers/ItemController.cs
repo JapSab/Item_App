@@ -93,15 +93,7 @@ namespace Item_App.Controllers
 			}
 			_db.Items.Remove(obj);
 			_db.SaveChanges();
-			TempData["success"] = "Category deleted successfully.";
-
-			return RedirectToAction("Index", "Category");
+			return RedirectToAction("Index", "Item");
 		}
-
-
-
-
-
-
 	}
 }
