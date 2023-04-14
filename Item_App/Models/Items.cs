@@ -7,8 +7,10 @@ namespace Item_App.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        [MaxLength(30)]
+        public string? Name { get; set; }
         [Required]
+        [Range(0, 500)]
         public int Price { get; set; }   
     }
 }

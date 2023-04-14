@@ -1,6 +1,10 @@
 ﻿
 @model List<Items> 
 
+<h2>Inventory</h2>
+<br />		
+<a asp-action="Create" class="btn btn-outline-dark">Add an item</a>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -17,7 +21,10 @@
 				<td>@obj.Id</td>
 				<td>@obj.Name</td>
 				<td>@obj.Price</td>
-				<td class="action"><button class="btn btn-warning">Edit</button> <button class="btn btn-danger">Delete</button></td>
+				<td class="action">
+					<a asp-controller="Item" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-warning">Edit</a>
+					<a asp-controller="Item" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger">Delete</a>
+				</td>
 			</tr>
 		}		
 	</tbody>
