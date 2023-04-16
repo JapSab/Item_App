@@ -1,7 +1,7 @@
-﻿using Item_App.Models;
+﻿using Item.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Item_App.Data
+namespace Item.DataAccess.Data
 {
     public class AppDBContext: DbContext
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Item_App.Models
+namespace Item.Models
 {
     public class Items
     {
@@ -11,6 +11,6 @@ namespace Item_App.Models
         public string? Name { get; set; }
         [Required]
         [Range(0, 500)]
-        public int Price { get; set; }   
+        public int Price { get; set; }
     }
 }
