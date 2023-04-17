@@ -1,4 +1,5 @@
 ﻿using Item.DataAccess.Data;
+using Item.DataAccess.Repository.IRepository;
 using Item.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,16 +8,16 @@ namespace Item_App.Controllers
 {
     public class ItemController : Controller
     {
-        private readonly AppDBContext _db;
-        public ItemController(AppDBContext db) 
+        private readonly IItemRepository _itemRepo;
+        public ItemController(IItemRepository db) 
         {
-            _db = db;
+			_itemRepo = db;
         }
         // get list of inventory
 
         public IActionResult Index()
         {
-            List<Items> objItemList = _db.Items.ToList();
+            List<Items> objItemList = _itemRepo.GetAll().ToList();
             return View(objItemList);
         }
 
@@ -32,8 +33,8 @@ namespace Item_App.Controllers
         {
             if(ModelState.IsValid)
             {
-				_db.Items.Add(obj);
-				_db.SaveChanges();
+				_itemRepo.Add(obj);
+				_itemRepo.Save();
 				return RedirectToAction("Index");
 			}
             return View();    
@@ -47,7 +48,7 @@ namespace Item_App.Controllers
 				return NotFound();
 			}
 
-			var ItemFromDb = _db.Items.Find(id);
+			Items? ItemFromDb = _itemRepo.Get(u => u.Id == id);
 
 			if(ItemFromDb==null)
 			{
@@ -61,8 +62,8 @@ namespace Item_App.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_db.Items.Update(obj);
-				_db.SaveChanges();
+				_itemRepo.Update(obj);
+				_itemRepo.Save();
 				return RedirectToAction("Index");
 			}
 			return View();
@@ -75,7 +76,9 @@ namespace Item_App.Controllers
 			{
 				return NotFound();
 			}
-			Items? ItemFromDb = _db.Items.Find(id);
+
+			Items? ItemFromDb = _itemRepo.Get(u => u.Id == id);
+
 			if (ItemFromDb == null)
 			{
 				return NotFound();
@@ -86,13 +89,14 @@ namespace Item_App.Controllers
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePOST(int? id)
 		{
-			Items? obj = _db.Items.Find(id);
+
+			Items? obj = _itemRepo.Get(u => u.Id == id);
 			if (obj == null)
 			{
 				return NotFound();
 			}
-			_db.Items.Remove(obj);
-			_db.SaveChanges();
+			_itemRepo.Remove(obj);
+			_itemRepo.Save();
 			return RedirectToAction("Index", "Item");
 		}
 	}
